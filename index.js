@@ -18,10 +18,17 @@ app.post('/upload', function(req, res, next) {
 	fs.writeFile(path.join(__dirname, 'uploads', req.body.name), req.body.data, function(err) {
 		console.log(req.body.field)
 		console.log('File Received')
+
+		var analyzeData = require("./batching_exercise");
+		analyzeData.work("req.body.work");
+		
+
 	});
 
 	res.status(200).send("done");
 })
+
+
 
 // run express on a port process.env.PORT || 3003
 console.log('Listening on port: ' + (process.env.PORT || 3000));
