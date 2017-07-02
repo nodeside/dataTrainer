@@ -6,6 +6,21 @@ var uploadButton = document.getElementById('upload-btn');
 document.getElementById('upload-btn').addEventListener('click', function(e) {
 	document.getElementById('file_upload').click()
 })
+document.getElementById('tc').onchange = function(e) {
+		var upload = document.getElementById('upload-btn');
+
+
+	if (e.target.checked) {
+		upload.style.cursor = "pointer";
+		upload.removeAttribute('disabled');
+	} else {
+
+		console.log('no agree')
+		upload.style.cursor = "not-allowed";
+		upload.setAttribute('disabled', true);
+	}
+}
+
 
 document.getElementById('file_upload').onchange = function(e) {
 	var reader = new FileReader();
@@ -26,6 +41,7 @@ document.getElementById('file_upload').onchange = function(e) {
 			chooseField.add(option);
 		}
 
+
 		chooseField.onchange = function(e) {
 			fileData.field = e.target.value;
 			//connect to the server
@@ -36,7 +52,7 @@ document.getElementById('file_upload').onchange = function(e) {
 
 			xhr.setRequestHeader('Content-Type', 'application/json')
 
-			// Set up a handler?? for when the request finishes.
+			// Set up a handler for when the request finishes.
 			xhr.onload = function() {
 				if (xhr.status === 200) {
 					// File(s) uploaded.
@@ -46,7 +62,8 @@ document.getElementById('file_upload').onchange = function(e) {
 					alert('An error occurred!');
 				}
 			};
-
+			var filereceived = document.getElementById("filereceived");
+			filereceived.style.display = "block";
 			// Send the Data.
 			xhr.send(JSON.stringify(fileData));
 		}

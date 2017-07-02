@@ -21,13 +21,14 @@ body {
   color: #ffffff;
   background-color: #F89406;
   border: none;
-   margin-top:-65px;
+   margin-top:10%;
    width:27%;
    height:4%;
    border-radius:5%;
-   font-size:.8vw;
-}
-
+   font-size:.83vw;
+   font-weight: bold;
+   cursor:not-allowed;
+ }
 #upload-btn:hover,
 #upload-btn:focus,
 
@@ -41,11 +42,9 @@ body {
 }
 
 
-
 h4 {
   
   margin-top: 60px;
-  margin-bottom:88px;
   font-size:1.5vw;
 
   color: #F0F7FA;
@@ -58,9 +57,14 @@ h4 {
 	margin:10% 40% ;
 	border-radius: 3.5%
 	
-ß
+
 }
 select{
 	margin: auto;
 	margin-bottom: 2.2vw;
 }
+
+label{
+color:#F0F7FA;
+font-size: 1.3vw;
+ }

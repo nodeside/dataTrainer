@@ -6,11 +6,20 @@
 		<div class="box">
 			<h4>File Uploader</h4> 
 			<form id="file-form" action="batching_exercise.js" method="POST">
-				<input id="file_upload"name="upload" type=file>
 
-				<button id="upload-btn" class="btn btn-lg" type="button" >Upload File</button>
+					<label> I agree to the terms and conditions<input  type="checkbox" id="tc"> </label>
+					
+								
+					<input id="file_upload"name="upload" type=file>
+
+			<div>	
+				<button id="upload-btn" class="btn btn-lg"  type="button" disabled >Upload File</button>
+			</div>
+			<div>
 				<select style="display:none" id="choose-field"></select>
-
+</div>
+				<p id = "filereceived" style="display:none"> File Received!</p>
+				
 
 			</form>
 		</div>

@@ -6,18 +6,15 @@ var path = require('path');
 // 	encoding: 'utf8'
 // })
 
-function work(data) {
-	var options = {
+function work(options, callback) {
+	var d = csvjson.toObject(options.data, {
 		delimiter: ',', // optional 
 		quote: '"' // optional 
-	}
-
-
-	var d = csvjson.toObject(data, options);
+	});
 
 	var batches = [];
 	var len;
-	for (var i = 0, len = d.length; i < len; i += 20) {
+	for (var i = 0, len = /*d.length*/50; i < len; i += 20) {
 
 		batches.push(d.slice(i, i + 20));
 
@@ -39,13 +36,15 @@ function work(data) {
 
 		function goThroughEachOne(item, cb) {
 
-			//here you will make the request to israelhayom
-			// we only want the title of the video
 
 			item.isShopifyStore = false;
 			item.webpageLoads = false;
 
-			var url = item.web.toLowerCase();
+			item.serverType = null;
+			item.contentType = null;
+			item.poweredBy = null;
+
+			var url = item[options.field].toLowerCase();
 
 			if (!url.length) {
 				return cb(null, item);
@@ -56,6 +55,7 @@ function work(data) {
 			}
 
 
+			
 
 			request(url, function(error, response, body) {
 				// console.log('error:', error); // Print the error if one occurred 
@@ -73,6 +73,14 @@ function work(data) {
 
 				}
 
+				if (response && response.headers) {
+		item.serverType =		response.headers.server;
+  		item.poweredBy = response.headers['x-powered-by'];
+		item.contentType = response.headers['content-type'];
+
+				}
+
+
 				cb(null, item);
 
 			});
@@ -85,7 +93,7 @@ function work(data) {
 			console.log('done looping over a single batch')
 			setTimeout(function() {
 				cb(err, results)
-			}, 500);
+			}, 10);
 		};
 
 	};
@@ -97,19 +105,23 @@ function work(data) {
 		console.log('finished each series')
 
 		var data = []
+
 		for (var index in results) {
 			data = data.concat(results[index]);
 		}
 
-
-		var options = {
+		var csvData = csvjson.toCSV(data, {
 			delimiter: ",",
 			wrap: false
-		}
-		fs.writeFileSync('./asd.csv', csvjson.toCSV(data, options));
+		});
+
+		callback(null, {
+			data: csvData,
+			filename: options.filename
+		})
 
 	};
 };
-module.exports={
-	work:work
+module.exports = {
+	work: work
 }
