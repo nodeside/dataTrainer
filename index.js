@@ -26,7 +26,7 @@ app.post('/upload', function(req, res, next) {
 		var fromEmail = new helper.Email('test@example.com');
 		var toEmail = new helper.Email('yonatan@nodeside.com');
 		var subject = 'Sending with SendGrid is Fun';
-		var content = new helper.Content('text/plain', 'and easy to do anywhere, even with Node.js');
+		var content = new helper.Content('text/plain', 'hellllooooooooo yonanta,, good shabos!');
 
 		var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 		var attachment = new helper.Attachment();
@@ -38,7 +38,7 @@ app.post('/upload', function(req, res, next) {
 		attachment.setDisposition('attachment');
 		mail.addAttachment(attachment);
 
-		var sg = require('sendgrid')('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');
+		var sg = require('sendgrid')(process.env.sendgridAPI);
 		var request = sg.emptyRequest({
 			method: 'POST',
 			path: '/v3/mail/send',
