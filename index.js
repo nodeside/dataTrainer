@@ -34,17 +34,16 @@ app.post('/upload', function(req, res, next) {
 
 		
 		
-			var theEmail = function(){
-			app.use(bodyParser.urlencoded({ extended: true }))
-			app.post('emailupload', function(req, res) {
-  			res.send(req.body.writeemail)});
-  			console.log(req.body.writeemail)
-};
+
+			
+  			console.log(req.body.email);
 
 
+
+	
 		var helper = require('sendgrid').mail;
 		var fromEmail = new helper.Email('Wodil@nodeside.com');
-		var toEmail = new helper.Email(req.body.writeemail);
+		var toEmail = new helper.Email(req.body.email);
 		
 		var subject = 'Revised File Attached';
 		var content = new helper.Content('text/plain', 'This is an email with an attachment!');
@@ -74,7 +73,7 @@ app.post('/upload', function(req, res, next) {
 			console.log(response.body);
 			console.log(response.headers);
 		});
-
+	
 
 	});
 

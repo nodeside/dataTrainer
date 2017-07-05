@@ -7,15 +7,15 @@
 			<h4>File Uploader</h4> 
 			<form id="file-form" action="batching_exercise.js" method="POST">
 
-					<label> I agree to the terms and conditions<input  type="checkbox" id="tc"> </label>
+					<label id="tandc"> I agree to the terms and conditions<input  type="checkbox" id="tc"> </label>
 
 				<div id = "emailupload" action="emailupload">
 
-					<label> Enter email for updated file to be sent to:<input  for=" writeemail type="text" action="./index.js" id="writeemail"></label>
+					<label id="emailwords"> Enter email for updated file to be sent to:<input  for="email" type="text" action="./index.js" id="email" ></label>
 
 				</div>
 
-					<input id="file_upload" name="upload" type=file>
+					<input id="file_upload" name="upload" type="file" accept=".csv">
 				
 			<div>	
 				<button id="upload-btn" class="btn btn-lg"  type="button" disabled >Upload File</button>
