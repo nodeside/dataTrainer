@@ -21,6 +21,7 @@ document.getElementById('tc').onchange = function(e) {
 	}
 }
 
+var entered_email = document.getElementById('writeemail').value;
 
 document.getElementById('file_upload').onchange = function(e) {
 	var reader = new FileReader();

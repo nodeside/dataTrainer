@@ -4,7 +4,6 @@ var app = express();
 var path = require('path');
 var analyzeData = require("./batching_exercise");
 
-
 app.use(bodyParser.json({
 	limit: '20mb'
 }))
@@ -33,12 +32,22 @@ app.post('/upload', function(req, res, next) {
 		filename: req.body.name
 	}, function(err, result) {
 
+		
+		
+			var theEmail = function(){
+			app.use(bodyParser.urlencoded({ extended: true }))
+			app.post('emailupload', function(req, res) {
+  			res.send(req.body.writeemail)});
+  			console.log(req.body.writeemail)
+};
+
 
 		var helper = require('sendgrid').mail;
-		var fromEmail = new helper.Email('test@example.com');
-		var toEmail = new helper.Email('schwartzdavid2@gmail.com');
-		var subject = 'Sending with SendGrid is Fun';
-		var content = new helper.Content('text/plain', '<This is an email with an attachment sent with SendGrid!');
+		var fromEmail = new helper.Email('Wodil@nodeside.com');
+		var toEmail = new helper.Email(req.body.writeemail);
+		
+		var subject = 'Revised File Attached';
+		var content = new helper.Content('text/plain', 'This is an email with an attachment!');
 
 		var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 		var attachment = new helper.Attachment();
@@ -50,7 +59,7 @@ app.post('/upload', function(req, res, next) {
 		attachment.setDisposition('attachment');
 		mail.addAttachment(attachment);
 
-		var sg = require('sendgrid')(process.env.sendgridAPI);
+		var sg = require('sendgrid')(process.env.sendgridKey);
 		var request = sg.emptyRequest({
 			method: 'POST',
 			path: '/v3/mail/send',

@@ -8,17 +8,23 @@
 			<form id="file-form" action="batching_exercise.js" method="POST">
 
 					<label> I agree to the terms and conditions<input  type="checkbox" id="tc"> </label>
-					
-								
-					<input id="file_upload"name="upload" type=file>
 
+				<div id = "emailupload" action="emailupload">
+
+					<label> Enter email for updated file to be sent to:<input  for=" writeemail type="text" action="./index.js" id="writeemail"></label>
+
+				</div>
+
+					<input id="file_upload" name="upload" type=file>
+				
 			<div>	
 				<button id="upload-btn" class="btn btn-lg"  type="button" disabled >Upload File</button>
 			</div>
 			<div>
 				<select style="display:none" id="choose-field"></select>
-</div>
+			</div>
 				<p id = "filereceived" style="display:none"> File Received!</p>
+
 				
 
 			</form>
