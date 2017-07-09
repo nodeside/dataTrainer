@@ -20,18 +20,16 @@ body {
 #upload-btn {
   color: #ffffff;
   background-color: #F89406;
-  border: none;
-   margin-top:7%;
-   width:27%;
-   height:4%;
-   border-radius:5%;
-   font-size:.83vw;
+  border: .5px #1072C3 solid;
+   margin:5% 6%;
+   width:30%;
+   height:7%;
+   border-radius:10px;
+   font-size:1vw;
    font-weight: bold;
-   cursor:not-allowed;
  }
 #upload-btn:hover,
 #upload-btn:focus,
-
 #upload-btn.active {
   color: #ffffff;
   background-color: #FA8900;
@@ -45,7 +43,7 @@ body {
 h4 {
   
   margin-top: 60px;
-  font-size:1.5vw;
+  font-size:2.5vw;
 
   color: #F0F7FA;
 }
@@ -54,32 +52,106 @@ h4 {
 .box{
 	border: 2px solid black;
 	background-color: #1072C7;
-	margin:10% 40% ;
-	border-radius: 3.5%
-	
+	margin:10% 30% ;
+  padding:5% 0;
+	border-radius: 33.5px;
+
+
 
 }
+#selectordiv{
+  border: 1px black solid;
+      width: 33% ;
+    height: 3%;
+    border-radius: 40px;
+    margin: auto;
+    padding-bottom: 15px;
+  }
 select{
 	margin: auto;
 	margin-bottom: 2.2vw;
-	margin-top: 10px;
+	margin-top: 2px;
+  font-size: larger;
+  width: 95%;
+    height: 150%;
+  outline: none;
+  border: none; 
+  border-radius: 8px;
+  background-color: rgba(255,255,255,0);
 }
 
-label{
+label, 
+#filereceived{
 color:#F0F7FA;
 font-size: 1.3vw;
  }
  #emailupload{
   padding:4%;
-
+color:#F0F7FA;
+font-size: 1.3vw;
 }
+
 #email{
- position:relative;
-    width:50%;
+   position:relative;
+  width:50%;
+  font-size: x-large;
+  margin-top: 1%;
   }
 #emailwords{
-  font-size:1.1vw;
+  font-size:1.3vw;
 }
 #tandc{
   font-size:1.3vw;
 }
+#tc{
+
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding: 8px;
+}
+#process-btn {
+  color: #ffffff;
+  background-color: #F89406;
+  border: .5px #1072C3 solid;
+   margin:5% 6%;
+   width:30%;
+   height:7%;
+   border-radius:10px;
+   font-size:1vw;
+   font-weight: bold;
+    cursor:not-allowed;
+  margin: auto;
+  margin-top: 10%;
+ }
+#process-btn:hover,
+#process-btn:focus,
+#process-btn.active {
+  color: #ffffff;
+  background-color: #FA8900;
+  border: none;
+}
+#process-btn:active{
+  background-color:#BF6A0A;
+}
+#filereceived{
+}
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 2s ease-in;
+  margin-top: -15%;
+
+
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s ease-out;
+  margin-top: -30%;
+  transition: margin-top 0s 2s;
+}
+
+

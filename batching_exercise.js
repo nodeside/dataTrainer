@@ -44,7 +44,7 @@ function work(options, callback) {
 			item.contentType = null;
 			item.poweredBy = null;
 
-			var url = item[options.field].toLowerCase();
+			//var url = item[options.field].toLowerCase();
 
 			if (!url.length) {
 				return cb(null, item);
