@@ -112,8 +112,12 @@ document.getElementById('file_upload').onchange = function(e) {
 					alert('An error occurred!');
 				}
 			};
+			agreeTaC.className = "hidden";
+			enteremail.className= "hidden";
+			processingtext.className = "hidden";
+			processbtn.className = "hidden";
 			var filereceived = document.getElementById("filereceived");
-			filereceived.style.display = "block";
+			filereceived.className = "visible";
 			// Send the Data.
 
 			fileData.email = document.getElementById('email').value;

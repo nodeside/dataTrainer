@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<div class="box">
-			<h4>File Uploader</h4> 
+			<h4>Super Duper</h4> 
 			<form id="file-form" action="batching_exercise.js" method="POST">
 				<div>
 					<input id="file_upload" name="upload" type="file" accept=".csv">
@@ -18,23 +18,23 @@
 					<option value="choose-field" selected> Choose field</option> 
 					</select>
 				</div>
-				
+				<div id= "bottomdiv">
 				
 
 					
-				<div id = "emailupload" action="emailupload" class="hidden">
-					<p id="processingtext"> Your file is being processed!	</p>
-					<label id="enter_email">  Please enter a valid email address for the revised document to be sent to:<input for="email" type="text" action="./index.js" id="email" ></label>
+					<div id = "emailupload" action="emailupload" class="hidden">
+						<p id="processingtext"> Your file is being processed!	</p>
+						<label id="enter_email">  Please enter a valid email address for the revised document to be sent to:<input for="email" type="text" action="./index.js" id="email" ></label>
 
+					</div>
+
+					<div>
+						<label id="tandc" class="hidden"> I agree to the terms and conditions <input  type="checkbox" id="tc"> </label>
+					</div>
+
+						<button id="process-btn" class="btn btn-lg hidden"  type="button" disabled>Send Request</button>
 				</div>
-
-				<div>
-					<label id="tandc" class="hidden"> I agree to the terms and conditions <input  type="checkbox" id="tc"> </label>
-				</div>
-
-					<button id="process-btn" class="btn btn-lg hidden"  type="button" disabled>Send Request</button>
-
-					<p id="filereceived" class="hidden"> Request received! An email with your edited file attached will be sent to you shortly. Thank you for using ____ :-) !</p>
+						<p id="filereceived" class="hidden"> Request received! An email with your edited file attached will be sent to you shortly. Thank you for using Super Duper :-) !</p>
 			</form>
 
 		</div>
