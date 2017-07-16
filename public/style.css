@@ -21,9 +21,9 @@ body {
   color: #ffffff;
   background-color: #F89406;
   border: .5px #1072C3 solid;
-   margin:5% 6%;
-   width:30%;
-   height:7%;
+  margin: 4% -15%;    
+  width:30%;
+   height:9.5%;
    border-radius:10px;
    font-size:1.2vw;
    font-weight: bold;
@@ -50,12 +50,14 @@ h4 {
 }
 
 
-.box{
+#box{
 	border: 2px solid black;
 	background-color: #1072C7;
 	margin:10% 30% ;
-  padding:5% 0;
+  padding:20px 0;
 	border-radius: 33.5px;
+  width:40%;
+  height:60%;
 
 
 
@@ -63,7 +65,7 @@ h4 {
 #selectordiv{
   border: 1px black solid;
       width: 33% ;
-    height: 3%;
+    height: 38px;
     border-radius: 40px;
     margin: auto;
     padding-bottom: 15px;
@@ -72,7 +74,7 @@ h4 {
 select{
 	margin: auto;
 	margin-bottom: 2.2vw;
-	margin-top: 2px;
+	margin-top: -2px;
   font-size: larger;
   width: 95%;
     height: 150%;
@@ -91,6 +93,7 @@ font-size: 1.3vw;
   padding:4%;
 color:#F0F7FA;
 font-size: 1.3vw;
+    margin-bottom: -20px;
 }
 
 #email{
@@ -118,15 +121,14 @@ font-size: 1.3vw;
   color: #ffffff;
   background-color: #F89406;
   border: .5px #1072C3 solid;
-   margin:5% 6%;
+       margin: 4% -15%;
    width:30%;
-   height:7%;
+   height:10%;
    border-radius:10px;
    font-size:1vw;
    font-weight: bold;
     cursor:not-allowed;
-  margin: auto;
-  margin-top: 10%;
+      margin-bottom: -17%;
  }
 #process-btn:hover,
 #process-btn:focus,
@@ -139,26 +141,25 @@ font-size: 1.3vw;
   background-color:#BF6A0A;
 }
 #filereceived{
-  margin-top: -33%;
-    margin-bottom: 16%;
+  margin-top: 16%;
 }
 .visible {
   visibility: visible;
   opacity: 1;
-  transition: opacity 2s ease-in;
-  margin-top: -15%;
+  transition: opacity 1s ease-in;
+  
 
 
 }
 .hidden {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s 2s, opacity 2s ease-out;
+  transition: visibility 0s 1s, opacity 1s ease-out;
   margin-top: -30%;
-  transition: margin-top 0s 2s;
+  transition: margin-top 0s 1s;
 }
 
 div#bottomdiv {
-   margin-top: 35%;
-    margin-bottom: 17%;
+   margin-top: -19%;
+   
 }

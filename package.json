@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material/select": "^0.3.10",
     "async": "^2.5.0",
     "body-parser": "^1.17.2",
     "csvjson": "^4.3.3",
