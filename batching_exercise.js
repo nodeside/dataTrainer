@@ -40,11 +40,11 @@ function work(options, callback) {
 			item.isShopifyStore = false;
 			item.webpageLoads = false;
 
-			item.serverType = null;
+			/*item.serverType = null;
 			item.contentType = null;
-			item.poweredBy = null;
+			item.poweredBy = null;*/
 
-			//var url = item[options.field].toLowerCase();
+			var url = item[options.field].toLowerCase();
 
 			if (!url.length) {
 				return cb(null, item);
@@ -54,8 +54,6 @@ function work(options, callback) {
 				url = 'http://' + url;
 			}
 
-
-			
 
 			request(url, function(error, response, body) {
 				// console.log('error:', error); // Print the error if one occurred 
