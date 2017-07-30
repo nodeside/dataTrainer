@@ -1,12 +1,39 @@
 var csvjson = require('csvjson');
 
+var _ = require('lodash');
+var mongoose = require('mongoose');
 var fs = require('fs');
 var path = require('path');
-// var data = fs.readFileSync(path.join(__dirname, ""), {
-// 	encoding: 'utf8'
-// })
+var request = require('request');
+var url = require('url');
+var async = require('async');
+var uuidv4 = require('uuid/v4');
+
 
 function work(options, callback) {
+
+	var fileIdentifier = uuidv4();
+
+	var Row = mongoose.model('Row');
+
+	function saveRow(data, callback) {
+
+		var row = new Row({
+			'uuid': fileIdentifier,
+			'email': options.email,
+			'filename': options.filename,
+			'url': data.item[options.field],
+			'urlKey': options.field,
+			'created': new Date(),
+			'data': data.item,
+			'results': data.results
+		});
+
+		row.save(function(err, status) {
+			callback(err, row);
+		});
+	}
+
 	var d = csvjson.toObject(options.data, {
 		delimiter: ',', // optional 
 		quote: '"' // optional 
@@ -14,18 +41,15 @@ function work(options, callback) {
 
 	var batches = [];
 	var len;
-	for (var i = 0, len = /*d.length*/50; i < len; i += 20) {
+
+
+	for (var i = 0, len = d.length; i < len; i += 20) {
 
 		batches.push(d.slice(i, i + 20));
 
 	}
 
-	var request = require('request');
-	var url = require('url');
 
-
-
-	var async = require('async');
 
 	async.mapSeries(batches, goThroughSeries, completedSeries);
 
@@ -37,8 +61,12 @@ function work(options, callback) {
 		function goThroughEachOne(item, cb) {
 
 
-			item.isShopifyStore = false;
-			item.webpageLoads = false;
+
+			var results = {
+				isShopifyStore: false,
+				loaded: false
+			}
+
 
 			/*item.serverType = null;
 			item.contentType = null;
@@ -47,7 +75,10 @@ function work(options, callback) {
 			var url = item[options.field].toLowerCase();
 
 			if (!url.length) {
-				return cb(null, item);
+				return saveRow({
+					item: item,
+					results: results
+				}, cb);
 			}
 
 			if (url.indexOf('http') == -1) {
@@ -62,24 +93,26 @@ function work(options, callback) {
 				console.log(url);
 
 				if (!error && body) {
-					item.webpageLoads = true;
+					results.loaded = true;
 				}
 
 				if (!error && body && body.indexOf('shopify.com') !== -1) {
-					console.log('has shopify');
-					item.isShopifyStore = true;
+					results.isShopifyStore = true;
 
 				}
 
 				if (response && response.headers) {
-		item.serverType =		response.headers.server;
-  		item.poweredBy = response.headers['x-powered-by'];
-		item.contentType = response.headers['content-type'];
+					results.serverType = response.headers.server;
+					results.poweredBy = response.headers['x-powered-by'];
+					results.contentType = response.headers['content-type'];
 
 				}
 
 
-				cb(null, item);
+				saveRow({
+					item: item,
+					results: results
+				}, cb);
 
 			});
 
@@ -100,22 +133,26 @@ function work(options, callback) {
 
 	function completedSeries(err, results) {
 
-		console.log('finished each series')
 
-		var data = []
+		Row.find({
+			uuid: fileIdentifier
+		}).exec(function(err, docs) {
 
-		for (var index in results) {
-			data = data.concat(results[index]);
-		}
+			var resultsArray = [];
 
-		var csvData = csvjson.toCSV(data, {
-			delimiter: ",",
-			wrap: false
-		});
+			docs.forEach(function(doc) {
+				resultsArray.push({data:doc.data, results:doc.results});
+			});
 
-		callback(null, {
-			data: csvData,
-			filename: options.filename
+			var csvData = csvjson.toCSV(resultsArray, {
+				delimiter: ",",
+				wrap: false
+			});
+
+			callback(null, {
+				data: csvData,
+				filename: options.filename
+			})
 		})
 
 	};

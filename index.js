@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var path = require('path');
 var analyzeData = require("./batching_exercise");
+var db = require('./db')
 
 app.use(bodyParser.json({
 	limit: '20mb'
@@ -14,9 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/upload', function(req, res, next) {
 
-	var fs = require('fs');
 
-	//fs.writeFile(path.join(__dirname, 'uploads', req.body.name), req.body.data, function(err) {
 
 	console.log(req.body.field)
 	console.log('File Received')
@@ -29,13 +28,15 @@ app.post('/upload', function(req, res, next) {
 	analyzeData.work({
 		data: req.body.data,
 		field: req.body.field,
-		filename: req.body.name
+		filename: req.body.name,
+		email:req.body.email
 	}, function(err, result) {
 
 		
 		
 
 			
+
   			console.log(req.body.email);
 
 
