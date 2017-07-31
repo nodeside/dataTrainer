@@ -108,6 +108,13 @@ document.getElementById('file_upload').onchange = function(e) {
 					// File(s) uploaded.
 					//uploadButton.innerHTML = 'Upload';
 					console.log(xhr.responseText)
+					var uuid = JSON.parse(xhr.responseText).uuid;
+
+					var link = '/download?uuid='+uuid;
+
+					document.getElementById('downloadbtn').href = link;
+
+
 				} else {
 					alert('An error occurred!');
 				}

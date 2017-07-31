@@ -4,6 +4,9 @@ var app = express();
 var path = require('path');
 var analyzeData = require("./batching_exercise");
 var db = require('./db')
+var csvjson = require('csvjson');
+var mongoose = require('mongoose');
+var json2csv = require('json2csv');
 
 app.use(bodyParser.json({
 	limit: '20mb'
@@ -12,40 +15,80 @@ app.use(bodyParser.json({
 //service static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/download', function(req, res, next) {
+
+	var Row = mongoose.model('Row');
+
+	Row.find({
+		uuid: req.query.uuid
+	}).exec(function(err, docs) {
+
+		var resultsArray = [];
+
+		docs.forEach(function(doc) {
+			resultsArray.push({
+				data: doc.data,
+				results: doc.results
+			});
+		});
+
+		var fields = [req.body];
+
+		var resr = json2csv({
+			data: resultsArray,
+			fields: fields
+		});
+		
+
+
+
+		// var csvData = csvjson.toCSV(resultsArray, {
+		// 	delimiter: ",",
+		// 	wrap: false
+		// });
+
+		res.setHeader('Content-disposition', 'attachment; filename=' + req.query.uuid + '.csv');
+		res.set('Content-Type', 'text/csv');
+		res.status(200).send(resr);
+		//	res.download(csvData)
+	})
+})
 
 app.post('/upload', function(req, res, next) {
 
 
+	var uuidv4 = require('uuid/v4');
+
+
+	var uuid = uuidv4();
 
 	console.log(req.body.field)
 	console.log('File Received')
 
 	res.status(200).send({
-		message: "Processing... An email will be sent with the processed file once complete"
+		message: "Processing... An email will be sent with the processed file once complete",
+		uuid: uuid
 	});
 
 	//analyze the data in the csv, looking for "shopify.com "
 	analyzeData.work({
+		uuid: uuid,
 		data: req.body.data,
 		field: req.body.field,
 		filename: req.body.name,
-		email:req.body.email
+		email: req.body.email
 	}, function(err, result) {
 
-		
-		
 
-			
 
-  			console.log(req.body.email);
+		console.log(req.body.email);
 
 
 
-	
 		var helper = require('sendgrid').mail;
 		var fromEmail = new helper.Email('Wodil@nodeside.com');
 		var toEmail = new helper.Email(req.body.email);
-		
+
 		var subject = 'Revised File Attached';
 		var content = new helper.Content('text/plain', 'This is an email with an attachment!');
 
@@ -74,7 +117,7 @@ app.post('/upload', function(req, res, next) {
 			console.log(response.body);
 			console.log(response.headers);
 		});
-	
+
 
 	});
 
@@ -102,6 +145,7 @@ app.post('/upload', function(req, res, next) {
 
 
 });
+
 
 
 //})

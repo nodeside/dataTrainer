@@ -7,12 +7,11 @@ var path = require('path');
 var request = require('request');
 var url = require('url');
 var async = require('async');
-var uuidv4 = require('uuid/v4');
 
 
 function work(options, callback) {
 
-	var fileIdentifier = uuidv4();
+	var fileIdentifier = options.uuid;
 
 	var Row = mongoose.model('Row');
 
@@ -101,19 +100,18 @@ function work(options, callback) {
 
 				}
 
-				if (response && response.headers) {
-					results.serverType = response.headers.server;
-					results.poweredBy = response.headers['x-powered-by'];
-					results.contentType = response.headers['content-type'];
+				// if (response && response.headers) {
+				// 	results.serverType = response.headers.server;
+				// 	results.poweredBy = response.headers['x-powered-by'];
+				// 	results.contentType = response.headers['content-type'];
 
-				}
+				// }
 
 
 				saveRow({
 					item: item,
 					results: results
 				}, cb);
-
 			});
 
 
